@@ -9,6 +9,9 @@
 </head>
 <jsp:setProperty property="*" name="vendors" />
 <body>
+	<c:if test="${sessionScope.vendors.authenticateLogin() == 'vendorsList'}">
+		<c:set var="user" value="abc" scope="session"/>
+	</c:if>
 	<c:redirect url="${sessionScope.vendors.authenticateLogin()}.jsp" />
 </body>
 </html>

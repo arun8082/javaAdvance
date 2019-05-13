@@ -20,6 +20,16 @@ public class VenOperationBean {
 	private String role;
 	private String statusMsg;
 	private Vendors logDetails;
+	private String uri;
+
+	public String getUri() {
+		return uri;
+	}
+
+	public void setUri(String uri) {
+		System.out.println("set uri");
+		this.uri = uri;
+	}
 
 	public String getStatusMsg() {
 		return statusMsg;
@@ -35,8 +45,8 @@ public class VenOperationBean {
 	}
 
 	public String addNewVendor() throws Exception {
-		Vendors vendor = new Vendors(name, email,password, city, cell_no, reg_amount, reg_date,
-				role);
+		Vendors vendor = new Vendors(name, email, password, city, cell_no, reg_amount,
+				reg_date, role);
 		boolean status = dao.insertVendor(vendor);
 		if (status == true) {
 			statusMsg = "1 vendor is sucessfully added...........";
@@ -68,7 +78,7 @@ public class VenOperationBean {
 	}
 
 	public String authenticateLogin() throws Exception {
-		//System.out.println(email+"  "+password);
+		//System.out.println(email+" "+password);
 		logDetails = dao.authenticateVendor(email, password);
 		if (logDetails != null) {
 			statusMsg = "Login successful...";
@@ -78,18 +88,32 @@ public class VenOperationBean {
 		return "login";
 	}
 
-	public Vendors vendorDetails() throws Exception{
+	public String authenticatePage() throws Exception {
+		if (logDetails != null) {
+			Vendors ven = null;
+			ven = dao.authenticateVendor(logDetails.getEmail(), logDetails.getPassword());
+			if (ven == null) {
+				statusMsg = "Login first please !!!!!!!";
+				return "login";
+			}
+			statusMsg = "";
+			return (ven == null) ? "login" : "vendorsList";
+		}
+		return "login";
+	}
+
+	public Vendors vendorDetails() throws Exception {
 		return dao.getVendorDetailsById(vid);
 	}
-	
+
 	public void unset() {
-		statusMsg="";
+		statusMsg = "";
 	}
-	
+
 	public int getVid() {
 		return vid;
 	}
-	
+
 	public void setVid(int vid) {
 		this.vid = vid;
 	}

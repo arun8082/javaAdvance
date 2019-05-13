@@ -9,12 +9,21 @@
 </head>
 <jsp:useBean id="vendors" class="vn.bean.VenOperationBean"
 	scope="session"></jsp:useBean>
+<jsp:setProperty property="uri" name="vendors" />
 <body>
+	<c:if test="${user != 'abc'}">
+		<c:redirect url="login.jsp"></c:redirect>
+	</c:if> 
+
 	<h4>Welcome ${sessionScope.vendors.logDetails.name}</h4>
+	<h4 align="right" style="margin-right: 100px;">
+		<a href="logout.jsp">Logout</a>
+	</h4>
 	<h4>Vendors List</h4>
 	<h4 style="color: brown;">${sessionScope.vendors.statusMsg}</h4>
-	<table border="1" style="border-collapse: collapse;width: 90%;text-align: left">
-		<tr style="background: black;color:snow">
+	<table border="1"
+		style="border-collapse: collapse; width: 90%; text-align: left">
+		<tr style="background: black; color: snow">
 			<th>Sr.</th>
 			<th>Name</th>
 			<th>Email</th>

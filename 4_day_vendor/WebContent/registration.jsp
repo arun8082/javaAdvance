@@ -9,6 +9,9 @@
 </head>
 <jsp:setProperty property="*" name="vendors"/>
 <body>
+	<c:if test="${user != 'abc'}">
+		<c:redirect url="login.jsp"></c:redirect>
+	</c:if>
 	<c:redirect url="${sessionScope.vendors.addNewVendor()}.jsp"></c:redirect>
 </body>
 </html>

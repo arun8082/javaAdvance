@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,13 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<c:if test="${user != 'abc'}">
+		<c:redirect url="login.jsp"></c:redirect>
+	</c:if>
 	<h4>Welcome ${sessionScope.vendors.logDetails.name}</h4>
+	<h4 align="right" style="margin-right: 100px;">
+		<a href="logout.jsp">Logout</a>
+	</h4>
 	<h4>Registration Form</h4>
 	<h4 style="color: brown;">${sessionScope.vendors.statusMsg}</h4>
 	<form action="registration.jsp" method="post">
@@ -39,7 +46,8 @@
 			<tr>
 				<td><label></label></td>
 				<td><input type="submit" name="register" value="register" /> <input
-					type="reset" name="reset" value="Reset" /></td>
+					type="reset" name="reset" value="Reset" /><input type="submit"
+					value="Back" formaction="vendorsList.jsp" /></td>
 			</tr>
 		</table>
 	</form>
